@@ -1,21 +1,21 @@
 <?php
 
-use Mockery as m;
+    use Illuminate\Foundation\Application;
+    use Optimus\ApiConsumer\Provider\LaravelServiceProvider;
+    use Mockery as m;
 
 class LaravelServiceProviderTest extends Orchestra\Testbench\TestCase {
 
     public function testServiceProviderIsWorking()
     {
-        $appMock = m::mock('Illuminate\Foundation\Application');
+        $appMock = m::mock(Application::class);
 
-        $appMock->shouldReceive('singleton')->with(
+        /*$appMock->shouldReceive('singleton')->with(
             'apiconsumer',
             m::type('Closure')
-        );
+        );*/
 
-        $provider = $this->app->make('Optimus\ApiConsumer\Provider\LaravelServiceProvider', [
-            $appMock
-        ]);
+        $provider = $this->app->make(LaravelServiceProvider::class);
 
         $this->assertNull($provider->register());
         $provider->boot();
